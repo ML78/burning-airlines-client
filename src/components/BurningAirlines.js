@@ -3,6 +3,8 @@ import SignUp from './SignUp';
 import SearchFlights from './SearchFlights';
 import BookFlight from './BookFlight';
 
+const SERVER_URL = 'http://localhost:3333/secrets.json';
+
 class BurningAirlines extends Component {
   render() {
     return(

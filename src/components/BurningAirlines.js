@@ -1,9 +1,16 @@
 import React, {PureComponent as Component} from 'react';
+import SignUp from './SignUp';
+import SearchFlights from './SearchFlights';
+import BookFlight from './BookFlight';
 
 class BurningAirlines extends Component {
   render() {
     return(
-      <h1>Main Component: BurningAirlines</h1>
+      <div>
+      <SignUp />
+      <SearchFlights />
+      <BookFlight />
+    </div>
     )
   }
 }
@@ -12,7 +19,7 @@ class BurningAirlines extends Component {
 
   // Component 1: SignUp (children -> SignUpForm)
   // Component 2: SearchFlights (children -> SearchForm, SearchResults)
-  // Component 3: BookFlight (children -> SelectSeat, BookForm?)
+  // Component 3: BookFlight (children -> SelectSeat, ConfirmSeat)
 
 
 export default BurningAirlines;

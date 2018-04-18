@@ -1,4 +1,5 @@
 import React, {PureComponent as Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class SearchForm extends Component {
   render() {
@@ -15,7 +16,7 @@ class SearchResults extends Component {
   render() {
     return(
       <div>
-        <h2>Search Results</h2>
+        <h3>Search Results</h3>
         {/*List of Flight Search Results*/}
       </div>
     )
@@ -25,7 +26,8 @@ class SearchFlights extends Component {
   render() {
     return(
       <div>
-        <h1>Search Flights</h1>
+        <Link to='/'>Burning Airlines</Link>
+        <h2>Search Flights</h2>
       <SearchForm/>
       <SearchResults/>
     </div>

@@ -1,17 +1,33 @@
 import React, {PureComponent as Component} from 'react';
-import SignUp from './SignUp';
 import SearchFlights from './SearchFlights';
 import BookFlight from './BookFlight';
+import {Link} from 'react-router-dom';
 
-const SERVER_URL = 'http://localhost:3333/secrets.json';
+const SERVER_URL = 'http://localhost:3333/airplanes.json';
+
+class SignUpForm extends Component {
+  render() {
+    return(
+
+        <form>
+          <input type="text" placeholder="Joe"></input>
+          <input type="submit" value="Sign Up!"></input>
+        </form>
+
+    )
+  }
+}
 
 class BurningAirlines extends Component {
   render() {
     return(
       <div>
-      <SignUp />
-      <SearchFlights />
-      <BookFlight />
+        <Link to='/'>Home</Link>
+        <Link to='/searchflights'>Search Flights</Link>
+        <Link to='/bookflight'>Book Flight</Link>
+        <h1>WELCOME TO BURNING AIRLINES</h1>
+        <h3>Sign Up</h3>
+        <SignUpForm />
     </div>
     )
   }

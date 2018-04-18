@@ -1,9 +1,12 @@
 import React, {PureComponent as Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class SelectSeat extends Component {
   render() {
     return (
-      <h2>Seat Selection</h2>
+      <div>
+      <h3>Seat Selection</h3>
+    </div>
     )
   }
 }
@@ -11,7 +14,7 @@ class SelectSeat extends Component {
 class ConfirmSeat extends Component {
   render() {
     return (
-      <h2>Confirm Seat Selection</h2>
+      <h3>Confirm Seat Selection</h3>
     )
   }
 }
@@ -20,7 +23,8 @@ class BookFlight extends Component {
   render() {
     return (
       <div>
-      <h1>BookFlight Page</h1>
+      <Link to='/'>Burning Airlines</Link>
+      <h2>BookFlight Page</h2>
       <SelectSeat/>
       <ConfirmSeat/>
     </div>

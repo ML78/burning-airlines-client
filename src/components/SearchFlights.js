@@ -43,6 +43,7 @@ class SearchResults extends Component {
       <div>
         <h3>Search Results</h3>
         {/*List of Flight Search Results*/}
+        {props.flights.map()}
       </div>
     )
   }
@@ -52,24 +53,24 @@ class SearchResults extends Component {
 class SearchFlights extends Component {
   constructor(props) {
     super(props);
-    this.state = {flights: []};
+    this.state = {flight_from: '', flight_to: ''};
     this.findFlights = this.findFlights.bind(this);
 
   }
 
   findFlights(start, finish){
     console.log('finding flights from', start, finish);
-    axios.post(SERVER_URL, {flights: start, finish}).then((results) => {
+    axios.post(SERVER_URL, {flight_from: start, flight_to: finish}).then((results) => {
       console.log(results);
-      this.setState({flights: [results.data, ...this.state.flights]});
+      this.setState({flight_from: [results.data, ...this.state.flight_from], flight_to: [results.data, ...this.state.flight_to]});
     })
   }
 
-
+//Getting all flights from Rails then filtering the ones here.
 // axios.get(SERVER_URL).then(function (results){
 //          let flightsArr = [];
 //          for (let i = 0; i<results.data.length;i++)
-//            if (results.data[i].origin === o && results.data[i].destination === d)
+//            if (results.data[i].flight_from === start && results.data[i].flight_to === finish)
 //              flightsArr.push(results.data[i]);
 //          this.setState({ flights:flightsArr });
 //        }.bind(this));

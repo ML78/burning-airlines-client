@@ -2,7 +2,7 @@ import React, {PureComponent as Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
-const FLIGHTS_URL = 'http://localhost:3333/flights.json';
+const AIRPLANES_URL = 'http://localhost:3333/airplanes.json';
 
 // Get airplanes data from SERVER_URL. Display on page. Name: rows: columns: (id)
 class SelectSeat extends Component {
@@ -36,6 +36,20 @@ class ConfirmSeat extends Component {
   }
 }
 
+// function SearchResults(props){
+//   return(
+//     <table>
+//       {props.displayFlight.map( (flight) =>
+//       <tr>
+//       <td key={flight.name}>{flight.name}</td>
+//       <td key={flight.rows}>{flight.rows}</td>
+//       <td key={flight.columns}>{flight.columns}</td>
+//       <Link to={`/bookflight/${flight.id}`}>Book Now</Link>
+//       </tr> )}
+//     </table>
+//   )
+// }
+
 /////////////////////////////////////////////////////////////////////////////
 class BookFlight extends Component {
   constructor(props){
@@ -47,7 +61,7 @@ class BookFlight extends Component {
 // this.props.match.params.id
     displayFlight(name, rows, columns){
       console.log('name of flight', name, 'has', rows, 'and', columns);
-      axios.get(FLIGHTS_URL).then(function(results){
+      axios.get(AIRPLANES_URL).then(function(results){
         console.log(results.data);
       });
   }

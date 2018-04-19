@@ -10,7 +10,7 @@ const Routes = (
     <div>
       <Route exact path="/" component={BurningAirlines}/>
       <Route exact path="/searchflights" component={SearchFlights}/>
-      <Route exact path="/bookflight" component={BookFlight}/>
+      <Route path="/bookflight/:id" component={BookFlight}/>
     </div>
   </Router>
 );

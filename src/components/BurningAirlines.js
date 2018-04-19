@@ -29,7 +29,7 @@ class SignUpForm extends Component {
 
         <form onSubmit={this._handleSubmit}>
           <input type="text" placeholder="Joe" onInput={this._handleInput}></input>
-          <Link to ="/users"><input type="submit" value="Sign Up!"></input></Link>
+          <input type="submit" value="Sign Up!"></input>
         </form>
 
     )

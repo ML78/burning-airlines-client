@@ -52,7 +52,7 @@ class BookFlight extends Component {
 // this.props.match.params.id
     displayFlight(name, rows, columns){
       console.log('name of flight', name, 'has', rows, 'and', columns);
-      axios.get(AIRPLANES_URL).then(function(results){
+      axios.get(FLIGHTS_URL).then(function(results){
         console.log(results.data);
       });
   }

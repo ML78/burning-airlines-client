@@ -1,7 +1,11 @@
 import React, {PureComponent as Component} from 'react';
 import {Link} from 'react-router-dom';
 
+const AIRPLANES_URL = 'http://localhost:3333/airplanes.json';
+
+// Get airplanes data from SERVER_URL. Display on page. Name: rows: columns: (id)
 class SelectSeat extends Component {
+
   render() {
     return (
       <div>
@@ -12,6 +16,7 @@ class SelectSeat extends Component {
 }
 
 class ConfirmSeat extends Component {
+  //When user presses select seat button (form) then post the 'airplane_id', and 'user_id'
   render() {
     return (
       <h3>Confirm Seat Selection</h3>

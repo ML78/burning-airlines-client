@@ -2,6 +2,7 @@ import React, {PureComponent as Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
+
 const FLIGHTS_URL = 'http://localhost:3333/flights.json';
 
 class SearchForm extends Component {
@@ -39,6 +40,7 @@ class SearchForm extends Component {
 /////////////////////////////////////////////////////////
 ///// Functional Component SearchResults: Child of SearchFlights, sibling of SearchForm
 function SearchResults(props) {
+
   return(
     <table>
       {/*JSON.stringify(props.flightsList)*/}
@@ -50,15 +52,25 @@ function SearchResults(props) {
         <th>Flight Date</th>
         <th>Plane</th>
       </tr>
-      {props.flightsList.map( (flight) =>
-      <tr>
-      <td key={flight.flight_number}>{flight.flight_number}</td>
-      <td key={flight.flight_from}>{flight.flight_from}</td>
-      <td key={flight.flight_to}>{flight.flight_to}</td>
-      <td key={flight.flight_date}>{flight.flight_date}</td>
-      <td key={flight.airplane_id}>{flight.airplane.name}</td>
-      <Link to={`/bookflight/${flight.id}`}>Book Now</Link>
-      </tr> )}
+      {props.flightsList.map( (flight) => {
+        const flightState = {
+          pathname: `/bookflight/${flight.id}`,
+          state: flight
+        }
+
+        return (
+          <tr>
+          <td key={flight.flight_number}>{flight.flight_number}</td>
+          <td key={flight.flight_from}>{flight.flight_from}</td>
+          <td key={flight.flight_to}>{flight.flight_to}</td>
+          <td key={flight.flight_date}>{flight.flight_date}</td>
+          <td key={flight.airplane_id}>{flight.airplane.name}</td>
+          <Link to={flightState}>Book Now</Link>
+          </tr>
+        )
+      }
+
+       )}
     </table>
   )
 }
@@ -96,6 +108,7 @@ class SearchFlights extends Component {
         <h2>Search Flights</h2>
       <SearchForm onSubmit={this.findFlights}/>
       <SearchResults flightsList={this.state.flights}/>
+
     </div> //flightsList={this.state.flights} --> put the state of the parent into a variable and passing that as a prop into the SearchResults child.
     )
   }

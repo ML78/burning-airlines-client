@@ -7,22 +7,22 @@ const SERVER_URL = 'http://localhost:3333/flights.json';
 class SearchForm extends Component {
   constructor(props){
     super(props);
-    this.state = {start: '', finish: ''};
+    this.state = {flight_from: '', flight_to: ''};
     this._handleStartChange = this._handleStartChange.bind(this);
     this._handleFinishChange = this._handleFinishChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   _handleStartChange(e){
-    this.setState({start: e.target.value});
+    this.setState({flight_from: e.target.value});
   }
   _handleFinishChange(e){
-    this.setState({finish: e.target.value});
+    this.setState({flight_to: e.target.value});
   }
 
   _handleSubmit(e){
     e.preventDefault();
-    this.props.onSubmit(this.state.start, this.state.finish);
+    this.props.onSubmit(this.state.flight_from, this.state.flight_to);
   }
   render() {
     return(
@@ -43,6 +43,7 @@ class SearchResults extends Component {
       <div>
         <h3>Search Results</h3>
         {/*List of Flight Search Results*/}
+
       </div>
     )
   }
@@ -52,28 +53,34 @@ class SearchResults extends Component {
 class SearchFlights extends Component {
   constructor(props) {
     super(props);
-    this.state = {flights: []};
+    this.state = {flight_from: [], flight_to: []};
     this.findFlights = this.findFlights.bind(this);
 
   }
 
   findFlights(start, finish){
     console.log('finding flights from', start, finish);
-    axios.post(SERVER_URL, {flights: start, finish}).then((results) => {
-      console.log(results);
-      this.setState({flights: [results.data, ...this.state.flights]});
-    })
+    axios.get(SERVER_URL).then(function (results){
+        console.log(results);
+             let flightsList = [];
+             for (let i = 0; i<results.data.length;i++){
+               if (results.data[i].flight_from === start && results.data[i].flight_to === finish)
+                 flightsList.push(results.data[i]);
+             }
+
+             this.setState({ flights: flightsList });
+            console.log(flightsList);
+           }.bind(this));
   }
 
+//Getting all flights from Rails then filtering the ones here.
 
-// axios.get(SERVER_URL).then(function (results){
-//          let flightsArr = [];
-//          for (let i = 0; i<results.data.length;i++)
-//            if (results.data[i].origin === o && results.data[i].destination === d)
-//              flightsArr.push(results.data[i]);
-//          this.setState({ flights:flightsArr });
-//        }.bind(this));
 
+
+// axios.post(SERVER_URL, {flight_from: start, flight_to: finish}).then((results) => {
+//   console.log(results);
+//   this.setState({flight_from: [results.data, ...this.state.flight_from], flight_to: [results.data, ...this.state.flight_to]});
+// })
 
   render() {
     return(

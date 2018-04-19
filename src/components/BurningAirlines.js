@@ -40,7 +40,7 @@ class BurningAirlines extends Component {
   constructor(props){
     super(props);
     this.state = {name: ''};
-    // this.saveName = this.saveName.bind(this);
+    this.saveName = this.saveName.bind(this);
 
   //   const fetchName = //this needs to get the name from _handleInput upstairs.
   //   fetchName();

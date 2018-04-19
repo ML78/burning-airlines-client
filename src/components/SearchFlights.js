@@ -2,7 +2,7 @@ import React, {PureComponent as Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3333/flights.json';
+const FLIGHTS_URL = 'http://localhost:3333/flights.json';
 
 class SearchForm extends Component {
   constructor(props){
@@ -37,50 +37,59 @@ class SearchForm extends Component {
   }
 }
 /////////////////////////////////////////////////////////
-class SearchResults extends Component {
-  render() {
-    return(
-      <div>
-        <h3>Search Results</h3>
-        {/*List of Flight Search Results*/}
-
-      </div>
-    )
-  }
+///// Functional Component SearchResults: Child of SearchFlights, sibling of SearchForm
+function SearchResults(props) {
+  return(
+    <table>
+      {/*JSON.stringify(props.flightsList)*/}
+      {/*The props is the variable flightsList that was passed inside the parent*/}
+      <tr>
+        <th>Flight Number</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Flight Date</th>
+        <th>Plane</th>
+      </tr>
+      {props.flightsList.map( (flight) =>
+      <tr>
+      <td key={flight.flight_number}>{flight.flight_number}</td>
+      <td key={flight.flight_from}>{flight.flight_from}</td>
+      <td key={flight.flight_to}>{flight.flight_to}</td>
+      <td key={flight.flight_date}>{flight.flight_date}</td>
+      <td key={flight.airplane_id}>{flight.airplane_id}</td>
+      <Link to='/bookflight'>Book Now</Link>
+      </tr> )}
+    </table>
+  )
 }
+
+<Link to='/'>Burning Airlines</Link>
 
 ////////////////////////////////////////////////////////
 class SearchFlights extends Component {
   constructor(props) {
     super(props);
-    this.state = {flight_from: [], flight_to: []};
-    this.findFlights = this.findFlights.bind(this);
-
-  }
-
-  findFlights(start, finish){
-    console.log('finding flights from', start, finish);
-    axios.get(SERVER_URL).then(function (results){
-        console.log(results);
-             let flightsList = [];
-             for (let i = 0; i<results.data.length;i++){
-               if (results.data[i].flight_from === start && results.data[i].flight_to === finish)
-                 flightsList.push(results.data[i]);
-             }
-
-             this.setState({ flights: flightsList });
-            console.log(flightsList);
-           }.bind(this));
-  }
-
-//Getting all flights from Rails then filtering the ones here.
-
-
-
-// axios.post(SERVER_URL, {flight_from: start, flight_to: finish}).then((results) => {
-//   console.log(results);
-//   this.setState({flight_from: [results.data, ...this.state.flight_from], flight_to: [results.data, ...this.state.flight_to]});
-// })
+    this.state = {flight_from: [], flight_to: [], flights: []};
+    //Getting all flights from Rails then filtering the ones here.
+    const findFlights = function (start, finish){
+      this.setState({flight_from: start, flight_to: finish});
+      console.log('finding flights from', start, finish, this.state);
+      axios.get(FLIGHTS_URL).then(function (results){
+          console.log(results);
+               let flightsList = [];
+               for (let i = 0; i<results.data.length;i++){
+                 if (results.data[i].flight_from === start && results.data[i].flight_to === finish)
+                   flightsList.push(results.data[i]);
+               }
+               this.setState({ flights: flightsList });
+              console.log(flightsList);
+              // setTimeout(function () {
+              //   findFlights(this.state.flight_from, this.state.flight_to)
+              // }.bind(this), 4000)
+             }.bind(this));
+    }.bind(this);
+    this.findFlights = findFlights.bind(this);
+  } //End CONSTRUCTOR
 
   render() {
     return(
@@ -88,8 +97,8 @@ class SearchFlights extends Component {
         <Link to='/'>Burning Airlines</Link>
         <h2>Search Flights</h2>
       <SearchForm onSubmit={this.findFlights}/>
-      <SearchResults/>
-    </div>
+      <SearchResults flightsList={this.state.flights}/>
+    </div> //flightsList={this.state.flights} --> put the state of the parent into a variable and passing that as a prop into the SearchResults child.
     )
   }
 }

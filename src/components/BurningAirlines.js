@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3333/users.json';
+const USERS_URL = 'http://localhost:3333/users.json';
 
 
 class SignUpForm extends Component {
@@ -49,7 +49,7 @@ class BurningAirlines extends Component {
 }
   saveName(s){
     console.log(s);
-    axios.post(SERVER_URL,{name: s}).then(results => {
+    axios.post(USERS_URL,{name: s}).then(results => {
       this.setState({name: [results.data, ...this.state.name]});
     })
     }

@@ -56,14 +56,12 @@ function SearchResults(props) {
       <td key={flight.flight_from}>{flight.flight_from}</td>
       <td key={flight.flight_to}>{flight.flight_to}</td>
       <td key={flight.flight_date}>{flight.flight_date}</td>
-      <td key={flight.airplane_id}>{flight.airplane_id}</td>
-      <Link to='/bookflight'>Book Now</Link>
+      <td key={flight.airplane_id}>{flight.airplane.name}</td>
+      <Link to={`/bookflight/${flight.id}`}>Book Now</Link>
       </tr> )}
     </table>
   )
 }
-
-<Link to='/'>Burning Airlines</Link>
 
 ////////////////////////////////////////////////////////
 class SearchFlights extends Component {
